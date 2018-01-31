@@ -17,7 +17,7 @@ import java.util.Set;
  */
 @SuppressWarnings("WeakerAccess")
 public class RouteRequest implements Serializable {
-    private static final int INVALID_CODE = -1;
+    private static final int INVALID_REQUEST_CODE = -1;
 
     private Uri uri;
     private Bundle extras;
@@ -35,9 +35,9 @@ public class RouteRequest implements Serializable {
     private Set<String> addedInterceptors;
     @Nullable
     private RouteCallback callback;
-    private int requestCode = INVALID_CODE;
-    private int enterAnim = INVALID_CODE;
-    private int exitAnim = INVALID_CODE;
+    private int requestCode = INVALID_REQUEST_CODE;
+    private int enterAnim = -1;//use -1 to mark use default animation
+    private int exitAnim = -1;
     @Nullable
     private ActivityOptionsCompat activityOptionsCompat;
 
@@ -151,7 +151,7 @@ public class RouteRequest implements Serializable {
 
     public void setRequestCode(int requestCode) {
         if (requestCode < 0) {
-            this.requestCode = INVALID_CODE;
+            this.requestCode = INVALID_REQUEST_CODE;
         } else {
             this.requestCode = requestCode;
         }
@@ -162,11 +162,7 @@ public class RouteRequest implements Serializable {
     }
 
     public void setEnterAnim(int enterAnim) {
-        if (enterAnim < 0) {
-            this.enterAnim = INVALID_CODE;
-        } else {
-            this.enterAnim = enterAnim;
-        }
+        this.enterAnim = enterAnim;
     }
 
     public int getExitAnim() {
@@ -174,11 +170,7 @@ public class RouteRequest implements Serializable {
     }
 
     public void setExitAnim(int exitAnim) {
-        if (exitAnim < 0) {
-            this.exitAnim = INVALID_CODE;
-        } else {
-            this.exitAnim = exitAnim;
-        }
+        this.exitAnim = exitAnim;
     }
 
     @Nullable
